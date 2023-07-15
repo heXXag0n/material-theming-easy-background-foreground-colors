@@ -138,27 +138,31 @@ $_emitted-density: () !default;
 
 // Creates a light-themed color configuration from the specified
 // primary, accent and warn palettes.
-@function _mat-create-light-color-config($primary, $accent, $warn: null, $foreground: (), $background: ()) {
+@function _mat-create-light-color-config($primary, $accent, $warn: null, $foreground: null, $background: null) {
+  $default-foreground: palette.$light-theme-foreground-palette;
+  $default-background: palette.$light-theme-background-palette;
   @return (
           primary: $primary,
           accent: $accent,
           warn: if($warn != null, $warn, define-palette(palette.$red-palette)),
           is-dark: false,
-          foreground: map.merge(palette.$light-theme-foreground-palette, $foreground),
-          background: map.merge(palette.$light-theme-background-palette, $background),
+          foreground: if($foreground != null, map.merge($default-foreground, $foreground), $default-foreground),
+          background: if($background != null, map.merge($default-background, $background), $default-background),
   );
 }
 
 // Creates a dark-themed color configuration from the specified
 // primary, accent and warn palettes.
-@function _mat-create-dark-color-config($primary, $accent, $warn: null, $foreground: (), $background: ()) {
+@function _mat-create-dark-color-config($primary, $accent, $warn: null, $foreground: null, $background: null) {
+  $default-foreground: palette.$dark-theme-foreground-palette;
+  $default-background: palette.$dark-theme-background-palette;
   @return (
           primary: $primary,
           accent: $accent,
           warn: if($warn != null, $warn, define-palette(palette.$red-palette)),
           is-dark: true,
-          foreground: map.merge(palette.$dark-theme-foreground-palette, $foreground),
-          background: map.merge(palette.$dark-theme-background-palette, $background),
+          foreground: if($foreground != null, map.merge($default-foreground, $foreground), $default-foreground),
+          background: if($background != null, map.merge($default-background, $background), $default-background),
   );
 }
 
